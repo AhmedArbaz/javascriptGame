@@ -100,7 +100,8 @@
 
         if (player.start) {
           //NOTE ya sath may validation lagai kay car bhar na jay sab pay lagai hay 
-          if (keys.ArrowUp && player.y > 0) {
+          if (keys.ArrowUp && player.y > (road.top + 70)) { //ais say ya ho ga pura top pay nahi jay ga to ham cars dakh pain gay anny vali 
+            
             player.y -= player.speed;
           } // to user up key press kary to -5 ho offset say
           if (keys.ArrowDown && player.y < (road.height - car.offsetHeight)) {
