@@ -34,6 +34,13 @@
         position: relative;
         overflow: hidden;
       }
+      .lines{
+        width: 10px;
+        height: 100px;
+        background: white;
+        position: absolute;
+        left: 195px;
+      }
     </style>
   </head>
 
@@ -101,7 +108,7 @@
         if (player.start) {
           //NOTE ya sath may validation lagai kay car bhar na jay sab pay lagai hay 
           if (keys.ArrowUp && player.y > (road.top + 70)) { //ais say ya ho ga pura top pay nahi jay ga to ham cars dakh pain gay anny vali 
-            
+
             player.y -= player.speed;
           } // to user up key press kary to -5 ho offset say
           if (keys.ArrowDown && player.y < (road.height - car.offsetHeight)) {
@@ -130,6 +137,14 @@
         player.start = true;
         window.requestAnimationFrame(gamePlay); //ya jo requestAnimationfram hay ya ak hi animation ko bar bar chaly ga ais ka kam ya hay ais may ham nay ak new function day dia playGame ab aus ko banin gay
 
+
+        //ya ham nay road ki lines bana li lakin abhi aus ko css nahi di vo bhi datay hain lakin js say bani hay ya 
+        for(let x = 0; x < 5; x++) {
+          let roadLines = document.createElement('div');
+          roadLines.setAttribute('class', 'lines');
+          roadLines.style.top = (x * 150) + 'px';
+          gameArea.appendChild(roadLines);
+        }
         //cars banay ka code
         let car = document.createElement("dive"); //ak div create kar li
         car.setAttribute("class", "car"); //ak div ko class add kar li
