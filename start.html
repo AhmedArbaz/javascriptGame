@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Game</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .hide {
+        display: none;
+      }
+
+      .car{
+        width: 50px;
+        height: 100px;
+        background-color: red;
+        position: absolute;
+        top: 180px;
+        left: 100px;
+        z-index: 2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="carGame">
+      <div class="score"></div>
+      <div class="startScreen">
+        <p>
+          Press here to start<br />
+          Arrow keys to move <br />
+          If you hit another car you lose
+        </p>
+      </div>
+      <div class="gameArea hide"> </div>
+    </div>
+
+    <script>
+
+
+      const score = document.querySelector(".score");
+      const startScreen = document.querySelector(".startScreen");
+      const gameArea = document.querySelector(".gameArea");
+      console.log(score);
+
+      //check player is ready
+      let player = {};
+
+      //start function startScreen may call kia hay yaha bana rahy hain aus ko
+      function start() {
+        gameArea.classList.remove("hide"); //ya game area ko remove karay ga 
+        startScreen.classList.add("hide"); //ya ham nay startScreen may hide class laga di hay 
+        player.start = true;
+        requestAnimationFrame(playGame); //ya jo requestAnimationfram hay ya ak hi animation ko bar bar chaly ga ais ka kam ya hay ais may ham nay ak new function day dia playGame ab aus ko banin gay
+
+          //cars banay ka code
+          let car = document.createElement('dive'); //ak div create kar li
+          car.setAttribute('class', 'car'); //ak div ko class add kar li
+          //car.innerText = '🚗'; //ak div ko text add kar li
+          gameArea.appendChild(car); //area vali div may car vali div ko add kar dia 
+  
+      }
+
+      function playGame() {
+        console.log("hello");
+        if(player.start){     
+            requestAnimationFrame(playGame); //ya same ais may dalny say jasay click karin gay to bar bar same cheez chaly gi
+        }
+      }
+
+      //Screen ko start karay ka function
+      startScreen.addEventListener("click", start);
+      
+      
+
+      document.addEventListener("keydown", keyDown); //ya ak event lata hay aur ya to callback do ya function ka name ya function to ham nay name dia
+      document.addEventListener("keyup", keyUp);
+
+      //hamin car play karny valu keys ko use karna hay
+      let keys = {
+        ArrowUp: false,
+        ArrowDown: false,
+        ArrowLeft: false,
+        ArrowRight: false,
+      }; //sab ko false kar dia ab jo true ho ga vo kam karay ga
+
+      //kon si key down hoi aus ko dakhin gay
+      function keyDown(e) {
+        e.preventDefault();
+        keys[e.key] = true;
+        console.log(e.key);
+        console.log(keys);
+      }
+
+      function keyUp(e) {
+        e.preventDefault();
+        keys[e.key] = false; //ab ak ap press karo gay to vo true ho jay gi jasay relese ho gi phir false ho jay gi to sary true nahi hon gay
+        console.log(e.key);
+
+      
+      }
+    </script>
+  </body>
+</html>
