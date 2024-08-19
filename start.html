@@ -18,9 +18,21 @@
         height: 100px;
         background-color: red;
         position: absolute;
-        top: 180px;
-        left: 100px;
+        bottom: 120px;
+        left: 50px;
         z-index: 2;
+        position: absolute;
+        
+      }
+
+      /* game area road */
+      .gameArea {
+        width: 400px;
+        height: 100vh;
+        background: #2d3436;
+        margin: auto;
+        position: relative;
+        overflow: hidden;
       }
     </style>
   </head>
@@ -77,25 +89,32 @@
       }
 
       function gamePlay() {
-        console.log("hello");
+        //console.log("hello");
+
+        //NOTE hamaray road ki yani gamearea ki div ki sari side ki values baty ga top kitna hay ,left y,x all ya method bhot important hay 
+
+        let road  = gameArea.getBoundingClientRect(); 
+        console.log(road);
 
         let car = document.querySelector(".car");
 
         if (player.start) {
-          if (keys.ArrowUp) {
+          //NOTE ya sath may validation lagai kay car bhar na jay sab pay lagai hay 
+          if (keys.ArrowUp && player.y > 0) {
             player.y -= player.speed;
           } // to user up key press kary to -5 ho offset say
-          if (keys.ArrowDown) {
+          if (keys.ArrowDown && player.y < (road.height - car.offsetHeight)) {
             player.y += player.speed;
           }
-          if (keys.ArrowLeft) {
+          if (keys.ArrowLeft && player.x > 0) {
             player.x -= player.speed;
           }
-          if (keys.ArrowRight) {
+          if (keys.ArrowRight && player.x < (road.width - car.offsetWidth) ) {
             player.x += player.speed;
           }
 
-          car.style.top = player.y + "px"; //px ais liay likha kay jo value hay aus kay sath px nahi aya to kam nahi karay ga
+          car.style.top = player.y + "px"; 
+          //NOTE px ais liay likha kay jo value hay aus kay sath px nahi aya to kam nahi karay ga
           car.style.left = player.x + "px"; //to move car in x axis
           //ham nay dakha tha kay top aur left lay lo khud hi bottom aur right a jay ga Q kay top ko - karo bottom left ko - karo to right done
 
