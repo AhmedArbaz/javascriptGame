@@ -95,6 +95,20 @@
         console.log(e.key);
       }
 
+      //ya moving lines ka function hay 
+      function moveLines() {
+        let lines = document.querySelectorAll(".lines");
+       //for each ya karta hay jo bhi ap kay array,obj may hay aus ko one by one print karata hay 
+        lines.forEach(function(item){
+          if(item.y>= 700){
+            item.y -= 750;
+          }
+          
+          item.y += player.speed;
+          item.style.top = item.y + "px";
+        })
+      }
+
       function gamePlay() {
         //console.log("hello");
 
@@ -104,6 +118,8 @@
         console.log(road);
 
         let car = document.querySelector(".car");
+
+        moveLines();
 
         if (player.start) {
           //NOTE ya sath may validation lagai kay car bhar na jay sab pay lagai hay 
@@ -142,7 +158,8 @@
         for(let x = 0; x < 5; x++) {
           let roadLines = document.createElement('div');
           roadLines.setAttribute('class', 'lines');
-          roadLines.style.top = (x * 150) + 'px';
+          roadLines.y = (x * 150);
+          roadLines.style.top = roadLines.y + 'px';
           gameArea.appendChild(roadLines);
         }
         //cars banay ka code
