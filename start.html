@@ -13,7 +13,7 @@
         display: none;
       }
 
-      .car {
+      .car ,.enemy{
         width: 50px;
         height: 100px;
         background-color: red;
@@ -95,6 +95,8 @@
         console.log(e.key);
       }
 
+      
+
       //ya moving lines ka function hay 
       function moveLines() {
         let lines = document.querySelectorAll(".lines");
@@ -109,6 +111,24 @@
         })
       }
 
+
+      
+      //ya moving enemy car ka function hay 
+      function moveEnemy() {
+        let enemy = document.querySelectorAll(".enemy");
+       //for each ya karta hay jo bhi ap kay array,obj may hay aus ko one by one print karata hay 
+        enemy.forEach(function(item){
+          if(item.y>= 750){
+            item.y = -300;
+            item.style.left = Math.floor(Math.random() * 350) + "px";
+          }
+          
+          item.y += player.speed;
+          item.style.top = item.y + "px";
+        })
+      }
+
+
       function gamePlay() {
         //console.log("hello");
 
@@ -120,6 +140,7 @@
         let car = document.querySelector(".car");
 
         moveLines();
+        moveEnemy();
 
         if (player.start) {
           //NOTE ya sath may validation lagai kay car bhar na jay sab pay lagai hay 
@@ -174,6 +195,18 @@
         //ya ham nay kia Q kay ais say pata chala kay ager offsettop use karin gay to top ki value vo ho jay gi to hamin move karna hay to ham ais may ya to value add karin gay ya -ve karin gay to ya move hoti nazar ay gi
         console.log("Top" + car.offsetTop);
         console.log("Left" + car.offsetLeft);
+
+          //ya ham nay cars ki bana li lakin abhi aus ko css nahi di vo bhi datay hain lakin js say bani hay ya 
+          for(let x = 0; x < 3; x++) {
+            let enemyCar = document.createElement('div');
+            enemyCar.setAttribute('class', 'enemy');
+            enemyCar.y = ((x+1) * 350) * -1;
+            enemyCar.style.top = enemyCar.y + 'px';
+            gameArea.appendChild(enemyCar);
+            //change the color of enemy car
+            enemyCar.style.backgroundColor = "green";
+            enemyCar.style.left = Math.floor(Math.random()* 350) + "px";
+          }
       }
     </script>
   </body>
