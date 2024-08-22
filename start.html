@@ -61,7 +61,7 @@
       const score = document.querySelector(".score");
       const startScreen = document.querySelector(".startScreen");
       const gameArea = document.querySelector(".gameArea");
-      console.log(score);
+      //console.log(score);
 
       //Screen ko start karay ka function
       startScreen.addEventListener("click", start);
@@ -85,17 +85,27 @@
       function keyDown(e) {
         e.preventDefault();
         keys[e.key] = true;
-        console.log(e.key);
-        console.log(keys);
+        //console.log(e.key);
+        //console.log(keys);
       }
 
       function keyUp(e) {
         e.preventDefault();
         keys[e.key] = false; //ab ak ap press karo gay to vo true ho jay gi jasay relese ho gi phir false ho jay gi to sary true nahi hon gay
-        console.log(e.key);
+        //console.log(e.key);
       }
 
-      
+      //Making collision
+      function isCollide(a, b) {
+        aRect = a.getBoundingClientRect(); //ya hamri car ki all sides select ho gai 
+        bRect = b.getBoundingClientRect();//ya enemy ki all sides select ho gai
+        //hamri car ka top enemy ki car kay bottom say bara hona chiay  or hamara bottom to say agy hona chiay right left say left right say 
+        return !(
+          (aRect.top > bRect.bottom) || (aRect.bottom < bRect.top) || (aRect.right < bRect.left) || (aRect.left > bRect.right)
+          //to ak bhi false ho to return ho jay gi
+        )
+      }
+
 
       //ya moving lines ka function hay 
       function moveLines() {
@@ -114,10 +124,14 @@
 
       
       //ya moving enemy car ka function hay 
-      function moveEnemy() {
+      function moveEnemy(car) {
         let enemy = document.querySelectorAll(".enemy");
        //for each ya karta hay jo bhi ap kay array,obj may hay aus ko one by one print karata hay 
         enemy.forEach(function(item){
+          
+          if(isCollide(car, item)){
+          console.log("Collide");  
+          }
           if(item.y>= 750){
             item.y = -300;
             item.style.left = Math.floor(Math.random() * 350) + "px";
@@ -135,12 +149,12 @@
         //NOTE hamaray road ki yani gamearea ki div ki sari side ki values baty ga top kitna hay ,left y,x all ya method bhot important hay 
 
         let road  = gameArea.getBoundingClientRect(); 
-        console.log(road);
+        //console.log(road);
 
         let car = document.querySelector(".car");
 
         moveLines();
-        moveEnemy();
+        moveEnemy(car);
 
         if (player.start) {
           //NOTE ya sath may validation lagai kay car bhar na jay sab pay lagai hay 
@@ -193,8 +207,8 @@
         player.y = car.offsetTop; //y say ham nay top kar dia ab direct value ko chagne karna ho ga
 
         //ya ham nay kia Q kay ais say pata chala kay ager offsettop use karin gay to top ki value vo ho jay gi to hamin move karna hay to ham ais may ya to value add karin gay ya -ve karin gay to ya move hoti nazar ay gi
-        console.log("Top" + car.offsetTop);
-        console.log("Left" + car.offsetLeft);
+        //console.log("Top" + car.offsetTop);
+        //console.log("Left" + car.offsetLeft);
 
           //ya ham nay cars ki bana li lakin abhi aus ko css nahi di vo bhi datay hain lakin js say bani hay ya 
           for(let x = 0; x < 3; x++) {
