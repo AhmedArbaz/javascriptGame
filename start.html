@@ -15,15 +15,34 @@
         display: none;
       }
 
-      .car ,.enemy{
+      .car{
         width: 50px;
         height: 100px;
-        background-color: red;
         position: absolute;
         bottom: 120px;
         left: 50px;
         z-index: 2;
         position: absolute;
+        background-image: url('us.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        border-radius: 30px;
+        
+      }
+
+      .enemy{
+        width: 50px;
+        height: 110px;
+        position: absolute;
+        bottom: 120px;
+        left: 50px;
+        z-index: 2;
+        position: absolute;
+        background-image: url('R.png');
+        filter: darken();
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        border-radius: 30px;
         
       }
 
@@ -35,6 +54,9 @@
         margin: auto;
         position: relative;
         overflow: hidden;
+        border-right: 7px dashed #c8d6e5;
+        border-left: 7px dashed #c8d6e5;
+        
       }
       .lines{
         width: 10px;
@@ -82,6 +104,13 @@
         width: 50%;
         
       }
+      .carGame{
+        width: 100%;
+        height: 100vh;
+        background-image: url('bg.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
     </style>
   </head>
 
@@ -95,7 +124,8 @@
           If you hit another car you lose
         </p>
       </div>
-      <div class="gameArea hide"></div>
+      <div class="gameArea"></div> 
+      <!-- hide hata dia to ak bar to nazar ay ga phir jab restart karin gay to phir hide lag jay ga to bar bar same cheez nahi ay gi -->
     </div>
 
     <script>
@@ -164,8 +194,8 @@
 
       function endGame() {
         player.start = false;
-        startScreen.classList.remove("hide");
-        startScreen.innerHTML = "Game over <br>Press here to restart";
+        startScreen.classList.remove("hide"); //ya jasay game over karay ga to ham nay startScreen may hide class laga di hay
+        startScreen.innerHTML = "Game over <br>"+ "Your Score is = "+ player.score+"<br>Press here to restart ";
       }
 
 
@@ -217,7 +247,7 @@
           if (keys.ArrowLeft && player.x > 0) {
             player.x -= player.speed;
           }
-          if (keys.ArrowRight && player.x < (road.width - car.offsetWidth) ) {
+          if (keys.ArrowRight && player.x < (road.width - 71) ) {
             player.x += player.speed;
           }
 
@@ -237,7 +267,7 @@
 
       //start function startScreen may call kia hay yaha bana rahy hain aus ko
       function start() {
-        gameArea.classList.remove("hide"); //ya game area ko remove karay ga
+        gameArea.innerHTML = ""; //ya error day raha tha to bar bar a raha tha cars
         startScreen.classList.add("hide"); //ya ham nay startScreen may hide class laga di hay
         player.start = true;
         //setting score
@@ -274,8 +304,12 @@
             enemyCar.style.top = enemyCar.y + 'px';
             gameArea.appendChild(enemyCar);
             //change the color of enemy car
-            enemyCar.style.backgroundColor = "blue";
+            //enemyCar.style.backgroundColor = randomColor();
             enemyCar.style.left = Math.floor(Math.random()* 350) + "px";
+          }
+          //ya random color generate kar raha hay 
+          function randomColor() {
+            return '#' + Math.floor(Math.random()* 0xffffff).toString(16);
           }
       }
     </script>
