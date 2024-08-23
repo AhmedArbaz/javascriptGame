@@ -4,10 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Car Game</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap">
     <style>
       * {
         margin: 0;
         padding: 0;
+        font-family: 'Josefin Sans', sans-serif;
       }
       .hide {
         display: none;
@@ -40,6 +42,20 @@
         background: white;
         position: absolute;
         left: 195px;
+      }
+      .score{
+        position: absolute;
+        top: 15px;
+        left: 40px;
+        color: white;
+        background: #10ac84;
+        width: 300px;
+        /*height: 70px;*/
+        line-height: 70px; /* ais say jab tak click nahi karin gay 2nd div nahi ay ga */
+        text-align: center;
+        font-size: 1.5em;
+        box-shadow: 0 5px 5px #777;
+        
       }
     </style>
   </head>
@@ -178,6 +194,11 @@
           //ham nay dakha tha kay top aur left lay lo khud hi bottom aur right a jay ga Q kay top ko - karo bottom left ko - karo to right done
 
           window.requestAnimationFrame(gamePlay); //ya same ais may dalny say jasay click karin gay to bar bar same cheez chaly gi
+          
+          //Q kay requestAnimationFrame bar bar same function ko chaly ga to ya hamara score khud hi increase hota jay ga Q kay ya ais kay bad hay to hamin bas display karana hay 
+          console.log(player.score++); 
+          player.score++;
+          score.innerHTML = "Score: " + player.score;
         }
       }
 
@@ -186,6 +207,8 @@
         gameArea.classList.remove("hide"); //ya game area ko remove karay ga
         startScreen.classList.add("hide"); //ya ham nay startScreen may hide class laga di hay
         player.start = true;
+        //setting score
+        player.score = 0;
         window.requestAnimationFrame(gamePlay); //ya jo requestAnimationfram hay ya ak hi animation ko bar bar chaly ga ais ka kam ya hay ais may ham nay ak new function day dia playGame ab aus ko banin gay
 
 
